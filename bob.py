@@ -21,13 +21,22 @@ def main():
     ENV.run(until=15)
 
 def car(environ):
+    """
+    For the entire duration of the simulation run, the car process will park
+    for 5 second intervals and drive for 2 second intervals. Driving can only
+    occur after parking has completed.
+    """
     while True:
+        # Parking
         print('Start parking at %d' % environ.now)
         parking_duration = 5
+        # Time out for the provided duration, then continue
         yield environ.timeout(parking_duration)
 
+        # Driving
         print('Start driving at %d' % environ.now)
         trip_duration = 2
+        # Time out for the provided duration, then continue
         yield environ.timeout(trip_duration)
 
 # If executed, run main()
