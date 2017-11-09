@@ -1,6 +1,6 @@
 # bob
 
-325 Simulation for Bob
+325 Simulation for Bob.
 
 ## Getting Started
 
