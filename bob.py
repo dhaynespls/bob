@@ -20,15 +20,15 @@ def main():
     ENV.process(car(ENV))
     ENV.run(until=15)
 
-def car(env):
+def car(environ):
     while True:
-        print('Start parking at %d' % env.now)
+        print('Start parking at %d' % environ.now)
         parking_duration = 5
-        yield env.timeout(parking_duration)
+        yield environ.timeout(parking_duration)
 
-        print('Start driving at %d' % env.now)
+        print('Start driving at %d' % environ.now)
         trip_duration = 2
-        yield env.timeout(trip_duration)
+        yield environ.timeout(trip_duration)
 
 # If executed, run main()
 if __name__ == '__main__':
