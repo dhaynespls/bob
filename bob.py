@@ -6,15 +6,19 @@ bob.py
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
+# Third party imports
 import simpy
+
+# Execution environment for an event-based simulation. The passing of time is
+# simulated by stepping from event to event.
+ENV = simpy.Environment()
 
 def main():
     """
     Call functions and alert the user as to what's going on.
     """
-    env = simpy.Environment()
-    env.process(car(env))
-    env.run(until=15)
+    ENV.process(car(ENV))
+    ENV.run(until=15)
 
 def car(env):
     while True:
@@ -25,7 +29,6 @@ def car(env):
         print('Start driving at %d' % env.now)
         trip_duration = 2
         yield env.timeout(trip_duration)
-
 
 # If executed, run main()
 if __name__ == '__main__':
