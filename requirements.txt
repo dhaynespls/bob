@@ -1,1 +1,1 @@
-simpy
+simpy==3.0.10
