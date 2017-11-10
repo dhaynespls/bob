@@ -23,7 +23,8 @@ def main():
     Call functions and alert the user as to what's going on.
     """
     bus_stop = BusStop(ENV, 19)
-    ENV.run(until=15)
+    # From 7:00 to 9:00 (2 hours)
+    ENV.run(until=7200)
 
 class BusStop():
     """
@@ -36,7 +37,7 @@ class BusStop():
         while True:
             print('Calling bus at %s' % env.now)
             env.process(bus(env, self))
-            # 1800 seconds == 3 minutes
+            # 1800 seconds == 30 minutes
             yield env.timeout(1800)
 
 def bus(env, bus_stop):
@@ -45,7 +46,8 @@ def bus(env, bus_stop):
     print('Bus arriving at %s' % env.now)
     # amount = gas_station.gas_tank.capacity - gas_station.gas_tank.level
     # yield gas_station.gas_tank.put(amount)
-    yield env.timeout(1800)
+    yield env.timeout(1)
+
 # If executed, run main()
 if __name__ == '__main__':
     main()
