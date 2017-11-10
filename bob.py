@@ -1,6 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 bob.py
+
+Loop through every day and time slot in the week. At a given point in time, a
+queue is filled with students waiting to get on the bus. A bus arrives and
+the queue is emptied up until the bus reaches it's capacity. If there is
+leftover students in the queue, then add them back in. Loop until time ends.
 """
 # Future Imports
 from __future__ import (absolute_import, division, print_function,
@@ -17,28 +22,30 @@ def main():
     """
     Call functions and alert the user as to what's going on.
     """
-    ENV.process(car(ENV))
+    bus_stop = BusStop(ENV, 19)
     ENV.run(until=15)
 
-def car(environ):
+class BusStop():
     """
-    For the entire duration of the simulation run, the car process will park
-    for 5 second intervals and drive for 2 second intervals. Driving can only
-    occur after parking has completed.
     """
-    while True:
-        # Parking
-        print('Start parking at %d' % environ.now)
-        parking_duration = 5
-        # Time out for the provided duration, then continue
-        yield environ.timeout(parking_duration)
+    def __init__(self, env, num_in_line):
+        self.queue = simpy.Resource(env, capacity=num_in_line)
+        self.monitor_proc = env.process(self.monitor_line(env))
 
-        # Driving
-        print('Start driving at %d' % environ.now)
-        trip_duration = 2
-        # Time out for the provided duration, then continue
-        yield environ.timeout(trip_duration)
+    def monitor_line(self, env):
+        while True:
+            print('Calling bus at %s' % env.now)
+            env.process(bus(env, self))
+            # 1800 seconds == 3 minutes
+            yield env.timeout(1800)
 
+def bus(env, bus_stop):
+    """
+    """
+    print('Bus arriving at %s' % env.now)
+    # amount = gas_station.gas_tank.capacity - gas_station.gas_tank.level
+    # yield gas_station.gas_tank.put(amount)
+    yield env.timeout(1800)
 # If executed, run main()
 if __name__ == '__main__':
     main()
