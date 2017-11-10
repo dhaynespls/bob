@@ -25,6 +25,7 @@ def main():
     bus_stop = BusStop(ENV, 19)
     # From 7:00 to 9:00 (2 hours)
     ENV.run(until=7201)
+    bus_seats = simpy.Resource(ENV, capacity=30)
 
 class BusStop():
     """
@@ -40,7 +41,7 @@ class BusStop():
             # 1800 seconds == 30 minutes
             yield env.timeout(1800)
 
-def bus(env, bus_stop):
+def bus(env, bus_stop, bus_seats):
     """
     """
     print('Bus arriving at %s' % env.now)
