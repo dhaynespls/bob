@@ -24,7 +24,7 @@ def main():
     """
     bus_stop = BusStop(ENV, 19)
     # From 7:00 to 9:00 (2 hours)
-    ENV.run(until=7200)
+    ENV.run(until=7201)
 
 class BusStop():
     """
