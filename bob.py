@@ -13,6 +13,8 @@ from __future__ import (absolute_import, division, print_function,
 
 # Third party imports
 import simpy
+import math
+import random
 
 # Execution environment for an event-based simulation. The passing of time is
 # simulated by stepping from event to event.
@@ -27,6 +29,71 @@ def main():
     ENV.run(until=7201)
     bus_seats = simpy.Resource(ENV, capacity=30)
 
+#weekday is a lowercase string whos value should be a day of the week, hours and minutes are integers would should be between 7:00 and 9:00 at 15 minute marks
+def people_waiting(weekday,hours,minutes):
+	
+	if weekday=="monday" or weekday=="tuesday" or weekday=="wednesday" or weekday=="thursday":
+		if hours==7 and minutes==0:
+			mu=14
+			sigma=4.58
+		if hours==7 and minutes==15:
+			mu=11.75
+			sigma=3.4
+		if hours==7 and minutes==30:
+			mu=4.75
+			sigma=0.96
+		if hours==7 and minutes==45:
+			mu=7.75
+			sigma=2.22
+		if hours==8 and minutes==0:
+			mu=13.5
+			sigma=1.29
+		if hours==8 and minutes==15:
+			mu=15.75
+			sigma=2.75
+		if hours==8 and minutes==30:
+			mu=24
+			sigma=2.16
+		if hours==8 and minutes==45:
+			mu=18
+			sigma=5
+		if hours==9 and minutes==0:
+			mu=11.5
+			sigma=0.71
+	if weekday=="friday":
+		if hours==7 and minutes==0:
+			mu=4
+			sigma=0.96
+		if hours==7 and minutes==15:
+			mu=1
+			sigma=0.96
+		if hours==7 and minutes==30:
+			mu=3
+			sigma=0.96
+		if hours==7 and minutes==45:
+			mu=4
+			sigma=0.96
+		if hours==8 and minutes==0:
+			mu=3
+			sigma=0.96
+		if hours==8 and minutes==15:
+			mu=8
+			sigma=2.22
+		if hours==8 and minutes==30:
+			mu=10
+			sigma=2.22
+		if hours==8 and minutes==45:
+			mu=7
+			sigma=2.22
+		if hours==9 and minutes==0:
+			mu=16
+			sigma=2.75
+	x=random.gauss(mu, sigma)
+	if x<0:
+		x=0
+	x=math.ceil(x)
+	return(x)	
+	
 class BusStop():
     """
     """
