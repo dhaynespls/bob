@@ -29,6 +29,7 @@ def main():
     ENV.run(until=7201)
     bus_seats = simpy.Resource(ENV, capacity=30)
 
+#this function intakes the day of the week and time time from 7 to 9 and outputs a random amount of people from a normal distribution	
 #weekday is a lowercase string whos value should be a day of the week, hours and minutes are integers would should be between 7:00 and 9:00 at 15 minute marks
 def people_waiting(weekday,hours,minutes):
 	
